@@ -1,4 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@page import="java.util.*" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%
+    //determine if we need to display the menu items by redirecting
+    out.println("here");
+    if(request.getAttribute("menuItems") != null){
+        response.sendRedirect("MainController?action=getMenuItems");
+    }
+%>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,7 +37,7 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 	<ul>
 		<li><a href="index.html">Home</a></li>
 		<li><a href="menu.html">Menu</a></li>
-		<li><a href="order.html">Order</a></li>
+		<li><a href="order.jsp">Order</a></li>
 		<li><a href="events.html">Specials</a></li>
 	</ul>
 </nav>
@@ -38,9 +54,7 @@ the next 7 days.</p>
 <label for="orderType">Order Type:</label><select id="orderType">
 	<option value="carryout">Carry Out</option>
 	<option value="delivery">Delivery</option>
-	<option value="dine">Dine In</option>
 </select>
-<input type="submit" value="Next!" id="submit1" class="button"/>
 </form><!--frmOrder1-->
 
 <form id="frmOrder2" method="post" action="">
@@ -52,17 +66,26 @@ the next 7 days.</p>
  <label for="state">State:</label><input  id="state" name="state"/><br/>
  <label for="zip">Zip:</label><input id="zip" name="zip"/><br/>
 </div><!--del-->
-<!--these will only show up if they select delivery or carryout-->
-<div class="carry del hidden">
- <input type="button" value="Add Another Item" id="addItem" class="button"/><br/>
-</div><!--carry-->
 
-<!--these will only show up if they select dine in-->
-<div class="dinein hidden">
-<label for="guests">Number of Guests:</label><input id="guests" name="guests"/><br/>
-<label for="resDate">Date:</label><input id="resDate" name="resDate"/><br/>
-<label for="resTime">Arrival Time:</label><input id="resTime" name="resTime"/><br/>
-</div><!--dinein-->
+<div class="items">
+    <!--<label for="salmon_roll"><input type="checkbox" name="salmon_roll" id="salmon_roll"/>Salmon Roll</label>
+    <label for="salmon_roll_qty">Quantity:<input type="number" name="salmon_roll_qty" id="salmon_rollqty"/></label>
+    -->
+    <%
+        Object obj = request.getAttribute("menuItems");
+        if(obj == null){
+            out.print("menu items is null");
+        } else {
+            out.print("menu items is: " + obj.toString());
+        }
+    %>
+    <c:forEach var="item" items="${menuItems}">
+        ${item.name}
+        ${item.price}
+        ${item.htmlDesc}
+    </c:forEach>
+
+</div>
 
 <br/>
 <input type="submit" value="Place Order" id="btnOrder" class="button hidden"/>

@@ -17,6 +17,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.MenuItem;
+import model.MenuService;
 
 /**
  *
@@ -24,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
-    private final String RESULT_PAGE = "confirmation.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,30 +40,42 @@ public class OrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         //Retrieve parameters from form and convert to double
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String phone = request.getParameter("phone");
-        String orderType = request.getParameter("type");
-        
-        Map<String, String> items = getOrderItems();
-        
-        //Pass parameters to Model
-        String subtotal = "";
-        String tax = "";
-        String total = "";
-        String gratuity = "";
+        String action = request.getParameter("action");
+        String destination = "";
+        if(action.equals("getMenuItems")){
+            //return menu items
+            MenuService menu = new MenuService();
+            List<MenuItem> menuItems = menu.getMenuItems();
+            request.setAttribute("menuItems", menuItems);
+            destination = "order.jsp";
+        } else if(action.equals("processOrder")){
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String phone = request.getParameter("phone");
+            String orderType = request.getParameter("type");
 
-        //return the data to the view
-        request.setAttribute("firstName", firstName);
-        request.setAttribute("lastName", lastName);
-        request.setAttribute("phone", phone);
-        request.setAttribute("orderType", orderType);
-        request.setAttribute("subtotal", subtotal);
-        request.setAttribute("tax", tax);
-        request.setAttribute("total", total);
-        request.setAttribute("gratuity", gratuity);
+            Map<String, String> items = getOrderItems();
+
+            //Pass parameters to Model
+            String subtotal = "";
+            String tax = "";
+            String total = "";
+            String gratuity = "";
+
+            //return the data to the view
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("phone", phone);
+            request.setAttribute("orderType", orderType);
+            request.setAttribute("subtotal", subtotal);
+            request.setAttribute("tax", tax);
+            request.setAttribute("total", total);
+            request.setAttribute("gratuity", gratuity);
+            
+            destination = "confirmation.jsp";
+        }
         
-        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+        RequestDispatcher view = request.getRequestDispatcher(destination);
         view.forward(request, response);
         
         

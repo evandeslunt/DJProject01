@@ -8,11 +8,13 @@ package model;
 public class MenuItem {
     private String name;
     private String description;
+    private String htmlDesc;
     private double price;
     
-    public MenuItem(String name, String description, double price){
+    public MenuItem(String name, String description, String htmlDesc, double price){
         setName(name);
         setDescription(description);
+        setHTMLDesc(htmlDesc);
         setPrice(price);
     }
     
@@ -31,6 +33,14 @@ public class MenuItem {
      */
     public final String getDescription(){
         return description;
+    }
+    
+    /**
+     * Returns the HTML description of the menu item.
+     * @return The HTML description of the menu item.
+     */
+    public final String getHTMLDesc(){
+        return htmlDesc;
     }
     
     /**
@@ -65,6 +75,13 @@ public class MenuItem {
             throw new IllegalArgumentException();
         }
         this.description = description;
+    }
+    
+    public final void setHTMLDesc(String htmlDesc){
+        if(htmlDesc == null || htmlDesc.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        this.htmlDesc = htmlDesc;
     }
     
     /**

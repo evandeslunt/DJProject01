@@ -302,9 +302,11 @@ function menuItem(id, description, price){
 
 /**
  * Initializes the menu item array with a list of all menu items, their id, and their price.
- **/
+ 
 function initMenuItemArray(){		
 	'use strict';
+        menuItems = 
+        
 	menuItems = [ new menuItem("alaska_roll", "Alaska Roll", 5.50)
 				 ,new menuItem("avocado_roll", "Avocado Roll", 5.00)
 				 ,new menuItem("boston_roll", "Boston Roll", 6.00)
@@ -333,5 +335,6 @@ function initMenuItemArray(){
 				 ,new menuItem("yellowtail_sashimi", "Yellowtail Nigiri", 6.00)
 				 
 				 
-				]				
-}
+				]			
+                                
+}*/
