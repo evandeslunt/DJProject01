@@ -1,59 +1,51 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package model;
 
 /**
- * This class represents a menu item at Volcano Sushi.
+ *
  * @author Liz Ife Van Deslunt 
  */
-public class MenuItem implements Product{
+public class OrderItem implements Product {
     private String name;
     private String description;
-    private String htmlDesc;
     private double price;
+    private double quantity;
     
-    public MenuItem(String name, String description, String htmlDesc, double price){
+    public OrderItem(String name, String description, double price, double quantity){
         setName(name);
         setDescription(description);
-        setHTMLDesc(htmlDesc);
         setPrice(price);
+        setQuantity(quantity);
     }
     
-    
-    /**
-     * Returns the name of the menu item.
-     * @return The name of the menu item
-     */
     @Override
     public final String getName(){
         return name;
     }
-    
-    /**
-     * Returns the description of the menu item.
-     * @return The description of the menu item
-     */
     @Override
     public final String getDescription(){
         return description;
     }
-    
-    /**
-     * Returns the HTML description of the menu item.
-     * @return The HTML description of the menu item.
-     */
-    public final String gethtmlDesc(){
-        return htmlDesc;
-    }
-    
-    /**
-     * Returns the price of the menu item.
-     * @return The price of the menu item
-     */
     @Override
     public final double getPrice(){
         return price;
     }
     
+    public final double getQuantity(){
+        return quantity;
+    }
+    
+    public final double getTotalCost(){
+        return price * quantity;
+    }
+    
+    
+     
     /**
      * Sets the name of the menu item.
      * @param name - The name of the menu item.
@@ -64,9 +56,7 @@ public class MenuItem implements Product{
         if(name == null || name.isEmpty()){
             throw new IllegalArgumentException();
         }
-        
         this.name = name;
-        
     }
     
     /**
@@ -82,12 +72,6 @@ public class MenuItem implements Product{
         this.description = description;
     }
     
-    public final void setHTMLDesc(String htmlDesc){
-        if(htmlDesc == null || htmlDesc.isEmpty()){
-            throw new IllegalArgumentException();
-        }
-        this.htmlDesc = htmlDesc;
-    }
     
     /**
      * Sets the price of the menu item.
@@ -100,6 +84,18 @@ public class MenuItem implements Product{
             throw new IllegalArgumentException();
         }
         this.price = price;
+    }
+    
+    
+    /**
+     * Sets the quantity ordered.
+     * @param quantity The quantity ordered
+     */
+    public final void setQuantity(double quantity){
+        if(quantity < 0){
+            throw new IllegalArgumentException();
+        }
+        this.quantity = quantity;
     }
     
 }

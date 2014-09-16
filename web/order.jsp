@@ -6,14 +6,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    //determine if we need to display the menu items by redirecting
-    out.println("here");
-    if(request.getAttribute("menuItems") != null){
-        response.sendRedirect("MainController?action=getMenuItems");
-    }
-%>
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -26,6 +18,13 @@
 </head>
 
 <body>
+    <%
+    //determine if we need to display the menu items by redirecting
+    if(request.getAttribute("menuItems") == null){
+        response.sendRedirect("OrderController?action=getMenuItems");
+    }
+%>
+
 <div id="wrapper">
 <header>
 <h1>Volcano Sushi</h1>
@@ -48,7 +47,7 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 the next 7 days.</p>
 
 <form id="frmOrder1" method="post" action="">
-<label for="firstName">First Name:</label><input required id="firstName" name="firstName"/><br/>
+<label for="firstName">First Name:<input required id="firstName" name="firstName"/></label><br/>
 <label for="lastName">Last Name:</label><input required id="lastName" name="lastName"/><br/>
 <label for="phone">Phone Number:</label><input required id="phone" name="phone"/><br/>
 <label for="orderType">Order Type:</label><select id="orderType">
@@ -60,11 +59,11 @@ the next 7 days.</p>
 <form id="frmOrder2" method="post" action="">
 <!--these will only show up if they select delivery-->
 <div class="del hidden">
- <label for="address">Address:</label><input  id="address" name="address"/><br/>
- <label for="apt">Apartment or Suite #:</label><input  id="apt" name="apt"/><br/>
- <label for="city">City:</label><input  id="city" name="city"/><br/>
- <label for="state">State:</label><input  id="state" name="state"/><br/>
- <label for="zip">Zip:</label><input id="zip" name="zip"/><br/>
+ <label for="address">Address:</label><input  id="address" name="address" /><br/>
+ <label for="apt">Apartment or Suite #:</label><input  id="apt" name="apt" /><br/>
+ <label for="city">City:</label><input  id="city" name="city" /><br/>
+ <label for="state">State:</label><input  id="state" name="state" /><br/>
+ <label for="zip">Zip:</label><input id="zip" name="zip" /><br/>
 </div><!--del-->
 
 <div class="items">
@@ -72,17 +71,18 @@ the next 7 days.</p>
     <label for="salmon_roll_qty">Quantity:<input type="number" name="salmon_roll_qty" id="salmon_rollqty"/></label>
     -->
     <%
-        Object obj = request.getAttribute("menuItems");
-        if(obj == null){
-            out.print("menu items is null");
-        } else {
-            out.print("menu items is: " + obj.toString());
-        }
     %>
     <c:forEach var="item" items="${menuItems}">
-        ${item.name}
-        ${item.price}
-        ${item.htmlDesc}
+        <label for="${item.htmlDesc}">
+            <input type="checkbox" name="${item.htmlDesc}" id="${item.htmlDesc}"/>
+            ${item.name} ($${item.price})
+        </label>
+        
+        <label for="${item.htmlDesc}_qty">
+            Quantity:
+            <input type="number" name="${item.htmlDesc}_qty" id="${item.htmlDesc}_qty" />
+        </label>
+        <br>
     </c:forEach>
 
 </div>

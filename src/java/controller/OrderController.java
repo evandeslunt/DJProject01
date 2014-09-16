@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.MenuItem;
 import model.MenuService;
+import model.OrderItem;
 
 /**
  *
@@ -42,19 +43,21 @@ public class OrderController extends HttpServlet {
         //Retrieve parameters from form and convert to double
         String action = request.getParameter("action");
         String destination = "";
+        
         if(action.equals("getMenuItems")){
             //return menu items
             MenuService menu = new MenuService();
             List<MenuItem> menuItems = menu.getMenuItems();
             request.setAttribute("menuItems", menuItems);
             destination = "order.jsp";
+            
         } else if(action.equals("processOrder")){
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String phone = request.getParameter("phone");
             String orderType = request.getParameter("type");
 
-            Map<String, String> items = getOrderItems();
+            List<OrderItem> itemsOrdered = getOrderItems();
 
             //Pass parameters to Model
             String subtotal = "";
@@ -82,14 +85,15 @@ public class OrderController extends HttpServlet {
     }
     
     /**
-     * Returns a map of items and quantity ordered from the Order page. 
-     * The results are stored as string pairs: <item name, quantity>
+     * Returns a list of MenuItems ordered from the Order page. 
      * 
-     * @return - a map of items and quantity ordered from the Order page.
+     * @return - a list of MenuItems ordered from the Order page.
      */
-    private Map<String, String> getOrderItems(){
-        // grabs the names and quantities of items ordered
-        return new HashMap<String, String>();
+    private List<OrderItem> getOrderItems(){
+        // grabs the names and quantities of items ordered and 
+        // creates MenuItem objects to hold them
+        
+        return new ArrayList<OrderItem>();
     }
     
     

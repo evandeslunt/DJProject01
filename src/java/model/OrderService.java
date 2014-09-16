@@ -1,6 +1,8 @@
 
 package model;
 
+import java.util.List;
+
 /**
  * This class performs the following functions for the Sushi website:
  *  (1) Calculates the total price of the order
@@ -90,12 +92,14 @@ public class OrderService {
      * @param amount The amount to add to the food total.
      * @throws IllegalArgumentException if the amount is less than 0.
      */
-    public final void addToFoodTotal(double amount){
-        if(amount < 0){
+    public final void addToFoodTotal(List<MenuItem> items){
+        if(items == null){
             throw new IllegalArgumentException();
         }
         
-        foodTotal += amount;
+        for(int i = 0; i < items.size(); i++){
+            foodTotal += items.get(i).getPrice();
+        }
     }
     
 }

@@ -51,4 +51,27 @@ public class InMemoryMenuAccessStrategy implements MenuItemAccessStrategy{
         menuItems.add(new MenuItem("Tuna Nigiri", "Fresh tuna over rice.", "tuna_nigiri", 6.00));
         menuItems.add(new MenuItem("Yellowtail Nigiri", "Fresh yellowtail over rice.", "yellowtail_nigiri", 6.00));
     }
+    
+    /**
+     * Returns the first MenuItem in the list whose HTML Description matches
+     * the given htmlDesc.
+     * @param htmlDesc - The HTML description to match
+     * @return The first MenuItem whose HTML Description matches the given 
+     * description, or null if no MenuItem's HTML Description matches the
+     * htmlDesc. 
+     * Also returns null if a null value or empty string is passed in.
+     */
+    public final MenuItem getMenuItemByID(String htmlDesc){
+        if(htmlDesc == null || htmlDesc.isEmpty()){
+            return null;
+        }
+        
+        for(int i = 0; i < menuItems.size(); i++){
+            if(menuItems.get(i).gethtmlDesc().equals(htmlDesc)){
+                return menuItems.get(i);
+            }
+        }
+        
+        return null;
+    }
 }
