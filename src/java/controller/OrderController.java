@@ -17,9 +17,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.InMemoryMenuAccessStrategy;
 import model.MenuItem;
 import model.MenuService;
 import model.OrderItem;
+import model.OrderService;
 
 /**
  *
@@ -52,18 +54,21 @@ public class OrderController extends HttpServlet {
             destination = "order.jsp";
             
         } else if(action.equals("processOrder")){
+            //get data from request to send to the model
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String phone = request.getParameter("phone");
             String orderType = request.getParameter("type");
+            List<OrderItem> itemsOrdered = getOrderItems(request);
 
-            List<OrderItem> itemsOrdered = getOrderItems();
-
+            //send data to model
+            OrderService orderServ = new OrderService(itemsOrdered);
+            
             //Pass parameters to Model
-            String subtotal = "";
-            String tax = "";
-            String total = "";
-            String gratuity = "";
+            Double subtotal = orderServ.getFoodTotal();
+            Double tax = orderServ.getTaxRate();
+            Double total = subtotal + tax;
+            Double gratuity = orderServ.getGratuityRate();
 
             //return the data to the view
             request.setAttribute("firstName", firstName);
@@ -74,6 +79,7 @@ public class OrderController extends HttpServlet {
             request.setAttribute("tax", tax);
             request.setAttribute("total", total);
             request.setAttribute("gratuity", gratuity);
+            request.setAttribute("itemsOrdered", itemsOrdered);
             
             destination = "confirmation.jsp";
         }
@@ -89,10 +95,30 @@ public class OrderController extends HttpServlet {
      * 
      * @return - a list of MenuItems ordered from the Order page.
      */
-    private List<OrderItem> getOrderItems(){
+    private List<OrderItem> getOrderItems(HttpServletRequest request){
         // grabs the names and quantities of items ordered and 
         // creates MenuItem objects to hold them
         
+        //I am not sure what the best way to do this is, so I am going to do something that feels hacky.
+        List<MenuItem> itemsOnPage = new InMemoryMenuAccessStrategy().getMenuItems();
+        List<OrderItem> itemsOrdered = new ArrayList<OrderItem>();
+        for(int i = 0; i < itemsOnPage.size(); i++){
+            MenuItem curr = itemsOnPage.get(i);
+            String selected = request.getParameter(curr.gethtmlDesc());
+            
+            if(selected != null && selected.equals("on")){
+                Double quantity = 0.0;
+                
+                try{
+                    quantity = new Double(request.getParameter(curr.gethtmlDesc() + "_qty"));
+                } catch(Exception e){
+                    quantity = 0.0;
+                }
+                
+                itemsOrdered.add(new OrderItem(curr.getName(), curr.getDescription()
+                 , curr.getPrice(), quantity));
+            }
+        }
         return new ArrayList<OrderItem>();
     }
     

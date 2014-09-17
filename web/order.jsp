@@ -43,10 +43,9 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 
 <div id="orderArea">
 <h2>Order Online</h2>
-<p>You can place an order for carryout or delivery, or book a reservation for anytime in
-the next 7 days.</p>
+<p>You can place an order for carryout or delivery.</p>
 
-<form id="frmOrder1" method="post" action="">
+<form id="frmOrder1" method="post" action="OrderController?action=processOrder">
 <label for="firstName">First Name:<input required id="firstName" name="firstName"/></label><br/>
 <label for="lastName">Last Name:</label><input required id="lastName" name="lastName"/><br/>
 <label for="phone">Phone Number:</label><input required id="phone" name="phone"/><br/>
@@ -54,9 +53,6 @@ the next 7 days.</p>
 	<option value="carryout">Carry Out</option>
 	<option value="delivery">Delivery</option>
 </select>
-</form><!--frmOrder1-->
-
-<form id="frmOrder2" method="post" action="">
 <!--these will only show up if they select delivery-->
 <div class="del hidden">
  <label for="address">Address:</label><input  id="address" name="address" /><br/>
@@ -88,16 +84,12 @@ the next 7 days.</p>
 </div>
 
 <br/>
-<input type="submit" value="Place Order" id="btnOrder" class="button hidden"/>
+<!--input type="submit" value="Place Order" id="btnOrder" class="button"/>-->
+<input type='submit' value="Place Order" id="btnOrderNew" class="button"/>
 </form>
 </div><!--orderArea-->
 
-<div id="orderConfirm" class="hidden">
-<p>Thank you, your order has been placed. Please see the order summary below.</p>
-<div id="orderSummary"></div>
-</div><!--orderConfirm-->
 
-</div><!--wrapper-->
 <footer>
 
 <p>Copyright Liz Ife Van Deslunt 2014</p>
