@@ -119,7 +119,7 @@ public class OrderController extends HttpServlet {
                  , curr.getPrice(), quantity));
             }
         }
-        return new ArrayList<OrderItem>();
+        return itemsOrdered;
     }
     
     

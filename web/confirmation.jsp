@@ -33,17 +33,61 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 		<li><a href="events.html">Specials</a></li>
 	</ul>
 </nav>
+    
 
 <div id="orderArea">
 <h2>Order Confirmation</h2>
 <p>Thank you for your order!</p>
 <p>Please review the order summary below.</p>
 
-<%
-    out.print("<p><b>SUSHI THINGS</b></p>");
-%>
-
-
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>${firstName} ${lastName}</td>
+    </tr>
+    <tr>
+        <td>Phone:</td>
+        <td>${phone}</td>
+    </tr>
+</table>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+        </tr>
+       
+        <c:forEach var="item" items="${itemsOrdered}">
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.price}</td>
+            </tr>
+        </c:forEach>
+        
+        <tr>
+            <td>Subtotal</td>
+            <td></td>
+            <td>${subtotal}</td>
+        </tr>
+        <tr>
+            <td>Tax</td>
+            <td></td>
+            <td>${tax}</td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td>${total}</td>
+        </tr>
+        <tr>
+            <td>Suggested Gratuity</td>
+            <td></td>
+            <td>${gratuity}</td>
+        </tr>
+    </table>
+    
+    
 <footer>
 
 <p>Copyright Liz Ife Van Deslunt 2014</p>
