@@ -63,11 +63,7 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 </div><!--del-->
 
 <div class="items">
-    <!--<label for="salmon_roll"><input type="checkbox" name="salmon_roll" id="salmon_roll"/>Salmon Roll</label>
-    <label for="salmon_roll_qty">Quantity:<input type="number" name="salmon_roll_qty" id="salmon_rollqty"/></label>
-    -->
-    <%
-    %>
+    <!--Menu items-->
     <c:forEach var="item" items="${menuItems}">
         <label for="${item.htmlDesc}" class="label-ck">
             <input type="checkbox" name="${item.htmlDesc}" id="${item.htmlDesc} class='input-ck'"/>

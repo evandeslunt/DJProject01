@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.InMemoryMenuAccessStrategy;
 import model.MenuItem;
 import model.MenuService;
@@ -71,6 +72,7 @@ public class OrderController extends HttpServlet {
             Double gratuity = orderServ.getGratuityRate();
 
             //return the data to the view
+            /*
             request.setAttribute("firstName", firstName);
             request.setAttribute("lastName", lastName);
             request.setAttribute("phone", phone);
@@ -80,6 +82,18 @@ public class OrderController extends HttpServlet {
             request.setAttribute("total", total);
             request.setAttribute("gratuity", gratuity);
             request.setAttribute("itemsOrdered", itemsOrdered);
+            */
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("firstName", firstName);
+            session.setAttribute("lastName", lastName);
+            session.setAttribute("phone", phone);
+            session.setAttribute("orderType", orderType);
+            session.setAttribute("subtotal", subtotal);
+            session.setAttribute("tax", tax);
+            session.setAttribute("total", total);
+            session.setAttribute("gratuity", gratuity);
+            session.setAttribute("itemsOrdered", itemsOrdered);
             
             destination = "confirmation.jsp";
         }

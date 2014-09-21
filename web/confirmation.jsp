@@ -70,7 +70,6 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
                 <td>$${item.price}</td>
             </tr>
         </c:forEach>
-        <br/>
         <tr>
             <td>Subtotal</td>
             <td></td>
