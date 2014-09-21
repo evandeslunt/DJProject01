@@ -83,7 +83,9 @@ form { 	padding: 1em 1em 1em 1em; }
 
 /* This code makes labels and input display in a grid */
 label, input, select { display: inline-block; margin: 2px 2px 2px 2px; }
-.text-input { width: 200px; }
+.contact, .label-ck { width: 250px; }
+
+
 /* Table formatting */
 th { text-align: left; }
 td { width: 250px; }

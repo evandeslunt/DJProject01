@@ -58,7 +58,7 @@ public class OrderController extends HttpServlet {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String phone = request.getParameter("phone");
-            String orderType = request.getParameter("type");
+            String orderType = request.getParameter("orderType");
             List<OrderItem> itemsOrdered = getOrderItems(request);
 
             //send data to model

@@ -49,6 +49,12 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
         <td>Phone:</td>
         <td>${phone}</td>
     </tr>
+    <tr>
+        <td>Order Type:</td>
+        <td>${orderType}</td>
+    </tr>
+    
+    <br/>
 </table>
     <table>
         <tr>
@@ -61,29 +67,29 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
             <tr>
                 <td>${item.name}</td>
                 <td>${item.quantity}</td>
-                <td>${item.price}</td>
+                <td>$${item.price}</td>
             </tr>
         </c:forEach>
-        
+        <br/>
         <tr>
             <td>Subtotal</td>
             <td></td>
-            <td>${subtotal}</td>
+            <td>$${subtotal}</td>
         </tr>
         <tr>
             <td>Tax</td>
             <td></td>
-            <td>${tax}</td>
+            <td>$${tax}</td>
         </tr>
         <tr>
             <td>Total</td>
             <td></td>
-            <td>${total}</td>
+            <td>$${total}</td>
         </tr>
         <tr>
             <td>Suggested Gratuity</td>
             <td></td>
-            <td>${gratuity}</td>
+            <td>$${gratuity}</td>
         </tr>
     </table>
     

@@ -46,20 +46,20 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 <p>You can place an order for carryout or delivery.</p>
 
 <form id="frmOrder1" method="post" action="OrderController?action=processOrder">
-<label for="firstName">First Name:<input required id="firstName" name="firstName"/></label><br/>
-<label for="lastName">Last Name:</label><input required id="lastName" name="lastName"/><br/>
-<label for="phone">Phone Number:</label><input required id="phone" name="phone"/><br/>
-<label for="orderType">Order Type:</label><select id="orderType">
+    <label for="firstName" class="contact">First Name:</label><input required id="firstName" name="firstName" class="contact"/><br/>
+    <label for="lastName" class="contact">Last Name:</label><input required id="lastName" name="lastName" class="contact"/><br/>
+    <label for="phone" class="contact">Phone Number:</label><input required id="phone" name="phone"class="contact"/><br/>
+    <label for="orderType" class="contact">Order Type:</label><select id="orderType" class="contact">
 	<option value="carryout">Carry Out</option>
 	<option value="delivery">Delivery</option>
-</select>
+    </select>
 <!--these will only show up if they select delivery-->
 <div class="del hidden">
- <label for="address">Address:</label><input  id="address" name="address" /><br/>
- <label for="apt">Apartment or Suite #:</label><input  id="apt" name="apt" /><br/>
- <label for="city">City:</label><input  id="city" name="city" /><br/>
- <label for="state">State:</label><input  id="state" name="state" /><br/>
- <label for="zip">Zip:</label><input id="zip" name="zip" /><br/>
+ <label for="address" class="contact">Address:</label><input  id="address" name="address" class="contact"/><br/>
+ <label for="apt" class="contact">Apartment or Suite #:</label><input  id="apt" name="apt" class="contact"/><br/>
+ <label for="city" class="contact">City:</label><input  id="city" name="city" class="contact"/><br/>
+ <label for="state" class="contact">State:</label><input  id="state" name="state" class="contact"/><br/>
+ <label for="zip" class="contact">Zip:</label><input id="zip" name="zip" class="contact"/><br/>
 </div><!--del-->
 
 <div class="items">
@@ -69,8 +69,8 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
     <%
     %>
     <c:forEach var="item" items="${menuItems}">
-        <label for="${item.htmlDesc}">
-            <input type="checkbox" name="${item.htmlDesc}" id="${item.htmlDesc}"/>
+        <label for="${item.htmlDesc}" class="label-ck">
+            <input type="checkbox" name="${item.htmlDesc}" id="${item.htmlDesc} class='input-ck'"/>
             ${item.name} ($${item.price})
         </label>
         
@@ -84,7 +84,6 @@ Hours: 11:00 AM - 11:00 PM Daily</p>
 </div>
 
 <br/>
-<!--input type="submit" value="Place Order" id="btnOrder" class="button"/>-->
 <input type='submit' value="Place Order" id="btnOrderNew" class="button"/>
 </form>
 </div><!--orderArea-->
